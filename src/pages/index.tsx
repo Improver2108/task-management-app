@@ -1,9 +1,10 @@
 
-export default function Home() {
 
-  return(
+export default function Home() {
+  return (
     <div>
-      Home Page
+      Organize your work and life, finally.
     </div>
-  )
+  );
 }
+
