@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import svgIcon from '../../public/Designer.svg';
-const bannerIcon: string = svgIcon
+const bannerIcon: string = svgIcon as string
 
 type TDimensions = {
     width: number,

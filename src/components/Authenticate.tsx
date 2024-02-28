@@ -32,11 +32,11 @@ const Authenticate = ({ action }: TAuthenticate) => {
                 <div className='flex mt-7 flex-col gap-[3rem]'>
                     <h3 className='text-5xl font-semibold'>{authenticateOptions.message}</h3>
                     <div className='flex flex-col gap-4'>
-                        {loginWith.map((site) => <LoginWith action={site} />)}
+                        {loginWith.map((site, index) => <LoginWith action={site} key={index} />)}
                     </div>
                     <hr className="border-gray-300" />
                     <form className='flex flex-col gap-4'>
-                        {credentials.map((credentialType) => <CredentialType action={credentialType} />)}
+                        {credentials.map((credentialType, index) => <CredentialType action={credentialType} key={index} />)}
                         <button type='submit' className='border border-gray-600 p-4 rounded-xl'>CLick Me</button>
                     </form>
 
@@ -77,8 +77,8 @@ const CredentialType = ({ action }: TCredentials) => {
     )
 }
 
-const SignUpLogic = () => <div>Sign Up</div>
+// const SignUpLogic = () => <div>Sign Up</div>
 
-const SignInLogic = () => <div>Sign In</div>
+// const SignInLogic = () => <div>Sign In</div>
 
 export default Authenticate;

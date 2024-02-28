@@ -18,7 +18,7 @@ const TablePage = () => {
     ]
     // Return the JSX element for the task
     return (<div className="">
-        {tasks.map((task, index) => <Task task={task} />)}
+        {tasks.map((task, index) => <Task task={task} key={index} />)}
     </div>
 
     );
