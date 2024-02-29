@@ -3,6 +3,7 @@ import type { Task } from "@prisma/client";
 type TTask = {
     task: Task
 }
+
 const TablePage = () => {
     const tasks: Task[] = [
         {

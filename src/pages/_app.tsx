@@ -18,7 +18,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <title>Task Management App</title>
         <meta name="description" content="this is a  task management app" />
       </Head>
-      <div className="font-mono">
+      <div className="font-mono min-h-fit">
         <Component {...pageProps} />
       </div>
 

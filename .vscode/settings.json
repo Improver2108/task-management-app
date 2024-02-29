@@ -10,5 +10,5 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "editor.cursorSmoothCaretAnimation": "on",
-  "cSpell.words": ["signup"]
+  "cSpell.words": ["signup", "TRPC"]
 }
