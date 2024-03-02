@@ -1,10 +1,25 @@
 import SideNavbar from "~/components/SideNav";
 import AppHeader from "~/components/app/AppHeader";
 import { MdOutlineTaskAlt } from "react-icons/md";
-import CTodayList from "~/components/app/Today";
+import CTodayList, { TaskCreate } from "~/components/app/Today";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { useState } from "react";
 
 const Today = () => {
+    const [tasks, setTask] = useState([
+        {
+            title: 'Work',
+            description: "To do this by today or tomorrow or dont, i don't care",
+            deadline: "2023-12-08",
+            createdBy: "Billu"
+        },
+        {
+            title: 'Work',
+            description: "To do this by today or tomorrow or dont, i don't care",
+            deadline: "2023-12-08",
+            createdBy: "Billu"
+        }
+    ])
     return (
         <div className="flex w-[100%] h-[100vh]">
             <main className="w-[100%]">
@@ -20,15 +35,14 @@ const Today = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-5">
-                        <CTodayList />
-                        <CTodayList />
-                        <CTodayList />
+                        {tasks.map((task, index) => <CTodayList {...task} key={index} />)}
                         <div className="flex justify-center">
                             <button className="flex flex-grow items-center max-w-[60rem] text-lg gap-3">
                                 <AiFillPlusCircle className="fill-blue-500 text-green-500 text-2xl" />
-                                <p className="text-gray-400"></p>
+                                <p className="text-gray-400">Add Tak</p>
                             </button>
                         </div>
+                        <TaskCreate />
                     </div>
                 </div>
             </main>
