@@ -2,14 +2,11 @@ import SideNavbar from "~/components/SideNav";
 import AppHeader from "~/components/app/AppHeader";
 import { MdOutlineTaskAlt } from "react-icons/md";
 import CTodayList from "~/components/app/Today";
-
-
-//header
-
+import { AiFillPlusCircle } from "react-icons/ai";
 
 const Today = () => {
     return (
-        <div className="flex w-[100%] min-h-[100vh]">
+        <div className="flex w-[100%] h-[100vh]">
             <main className="w-[100%]">
                 <AppHeader />
                 <div className="flex flex-col px-[3.5rem] gap-5">
@@ -22,12 +19,17 @@ const Today = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-5">
                         <CTodayList />
                         <CTodayList />
                         <CTodayList />
+                        <div className="flex justify-center">
+                            <button className="flex flex-grow items-center max-w-[60rem] text-lg gap-3">
+                                <AiFillPlusCircle className="fill-blue-500 text-green-500 text-2xl" />
+                                <p className="text-gray-400"></p>
+                            </button>
+                        </div>
                     </div>
-
                 </div>
             </main>
         </div>
