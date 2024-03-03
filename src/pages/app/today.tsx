@@ -30,7 +30,7 @@ const Today = () => {
                             <h1 className="text-4xl font-bold">Today</h1>
                             <div className="text-[#666666] text-[1.15em] flex gap-2 items-center pt-2">
                                 <MdOutlineTaskAlt className="" />
-                                <p>1 task</p>
+                                <p>{tasks.length} {tasks.length > 1 ? 'tasks' : 'task'}</p>
                             </div>
                         </div>
                     </div>
