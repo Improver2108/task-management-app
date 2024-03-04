@@ -1,7 +1,7 @@
 import SideNavbar from "~/components/SideNav";
 import AppHeader from "~/components/app/AppHeader";
 import { MdOutlineTaskAlt } from "react-icons/md";
-import CTodayList, { TaskCreate } from "~/components/app/Today";
+import CTodayList, { TTask, TaskCreate } from "~/components/app/Today";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useState } from "react";
 
@@ -18,13 +18,18 @@ const Today = () => {
             description: "To do this by today or tomorrow or dont, i don't care",
             deadline: "2023-12-08",
             createdBy: "Billu"
-        }
+        },
     ])
+
+    const addTask = (task: TTask) => {
+        setTask(prev => [...prev, task]);
+    }
+
     return (
         <div className="flex w-[100%] h-[100vh]">
             <main className="w-[100%]">
                 <AppHeader />
-                <div className="flex flex-col px-[3.5rem] gap-5">
+                <div className="flex flex-col px-[3.5rem] gap-5 pb-5">
                     <div className="flex justify-center  items-center">
                         <div className="max-w-[60rem] flex-grow ">
                             <h1 className="text-4xl font-bold">Today</h1>
@@ -42,7 +47,7 @@ const Today = () => {
                                 <p className="text-gray-400">Add Tak</p>
                             </button>
                         </div>
-                        <TaskCreate />
+                        <TaskCreate addTask={addTask} />
                     </div>
                 </div>
             </main>

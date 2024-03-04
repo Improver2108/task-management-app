@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, SyntheticEvent, useState } from "react";
 import { IoIosRadioButtonOff } from "react-icons/io";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { RxCalendar } from "react-icons/rx";
 import { FaRegUser } from "react-icons/fa";
 import { PiFlagBannerBold } from "react-icons/pi";
 import { IoSend } from "react-icons/io5";
-
+import Calendar from 'react-calendar';
 
 type IconChild = {
     children: React.ReactNode;
 }
-type TTask = {
+export type TTask = {
     title: string,
     description: string
     deadline: string,
@@ -84,24 +84,64 @@ const Icon = ({ children }: IconChild) => {
     )
 }
 
-export const TaskCreate = () => {
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+type TaskFormEvent = React.FormEvent<HTMLFormElement> & {
+    target: {
+        taskName: HTMLInputElement,
+        description: HTMLInputElement
+    }
+}
+type TaskProp = {
+    addTask: (task: TTask) => void
+}
+
+export const TaskCreate = ({ addTask }: TaskProp) => {
+    const [value, onChange] = useState<Value>(new Date());
+    const [isDeadlineClicked, setIsDeadlineClicked] = useState(false);
+
+    const [priority, setPriority] = useState<number>()
+    const [isPriorityClicked, setIsPriorityClicked] = useState(false);
+
+    const handleFormSubmit = (e: TaskFormEvent) => {
+        console.log(e.target)
+        e.preventDefault();
+        const task: TTask = {
+            title: e.target.taskName.value,
+            description: e.target.description.value,
+            deadline: value?.toLocaleString('en', { month: 'short', day: '2-digit' }) ?? '',
+            createdBy: 'kabira'
+        };
+
+        return addTask(task);
+    };
 
     return (
         <section className="flex justify-center">
             <div className="flex max-w-[60rem] flex-grow border rounded-lg p-4">
-                <form className="flex flex-col flex-grow">
+                <form className="flex flex-col flex-grow" onSubmit={handleFormSubmit}>
                     <input name='taskName' type="text" placeholder="Task Name" className="focus:outline-none font-semibold text-lg" />
-                    <input name='description' type="text" placeholder="Description" className="focus:outline-none text-sm" />
+                    <input name='description' placeholder="Description" className="focus:outline-none text-sm" />
                     <div className="flex gap-2 text-xs pt-2">
-                        <button className="border rounded-md px-2 py-1 flex items-center gap-1">
-                            <RxCalendar />
-                            <div>Deadline</div>
-                        </button>
-                        <button className="border rounded-md px-2 py-1 flex items-center gap-1">
-                            <PiFlagBannerBold />
-                            <div>Priority</div>
-                        </button>
-                        <button className="border rounded-md px-2 py-1 flex items-center gap-1">
+                        <div className="relative">
+                            <button onClick={() => setIsDeadlineClicked(prev => !prev)} className="border rounded-md px-2 py-1 flex items-center gap-1 relative " type="button" >
+                                <RxCalendar />
+                                <div>{value?.toLocaleString('en', { month: 'short', day: '2-digit' })}</div>
+                            </button>
+                            {isDeadlineClicked && <div className="absolute top-8 z-10"><Calendar onChange={onChange} value={value} onClickDay={() => setIsDeadlineClicked(prev => !prev)} /></div>}
+                        </div>
+                        <div className="relative">
+                            <button type="button" className="border rounded-md px-2 py-1 flex items-center gap-1" onClick={() => setIsPriorityClicked(prev => !prev)}>
+                                <PiFlagBannerBold />
+                                <div>Priority {priority}</div>
+                            </button>
+                            {isPriorityClicked && <div className="absolute top-8" onClick={() => setIsPriorityClicked(prev => !prev)}>
+                                {[1, 2, 3].map(num => <div onClick={() => setPriority(num)} key={num}>{`Priority ${num}`}</div>)}
+                            </div>}
+                        </div>
+                        <button className="border rounded-md px-2 py-1 flex items-center gap-1" type="button">
                             <FaRegUser />
                             <div>Users</div>
                         </button>
