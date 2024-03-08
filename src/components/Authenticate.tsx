@@ -1,18 +1,23 @@
-import { signIn } from 'next-auth/react';
+import { ClientSafeProvider, LiteralUnion, signIn } from 'next-auth/react';
 import { BannerIcon } from './Icons';
 import Link from 'next/link';
+import { BuiltInProviderType } from 'next-auth/providers/index';
 
-type TAction<T> = {
-    action: T
+
+type TProviders = Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | never[];
+
+type TAuthenticate = {
+    action: boolean,
+    providers: TProviders
 }
 
-type TAuthenticate = TAction<boolean>
-type TSite = TAction<string>
-type TCredentials = TAction<string>
+type TCredentials = {
+    action: string
+}
 const passWordRegex = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
 
 
-const Authenticate = ({ action }: TAuthenticate) => {
+const Authenticate = ({ action, providers }: TAuthenticate) => {
 
     const authenticateOptions = {
         message: action ? 'Log in' : 'Sign up',
@@ -32,7 +37,13 @@ const Authenticate = ({ action }: TAuthenticate) => {
                 <div className='flex mt-7 flex-col gap-[3rem]'>
                     <h3 className='text-5xl font-semibold'>{authenticateOptions.message}</h3>
                     <div className='flex flex-col gap-4'>
-                        {loginWith.map((site, index) => <LoginWith action={site} key={index} />)}
+                        {Object.values(providers).map(provider =>
+                            <button key={provider.name} onClick={() => signIn(provider.id)}>
+                                <Link href={'/auth/login'} className='flex justify-center items-center text-2xl font-semibold border min-h-[2.25em] rounded-xl'>
+                                    Continue with {provider.name}
+                                </Link>
+                            </button>
+                        )}
                     </div>
                     <hr className="border-gray-300" />
                     <form className='flex flex-col gap-4'>
@@ -46,15 +57,6 @@ const Authenticate = ({ action }: TAuthenticate) => {
     )
 }
 
-const LoginWith = ({ action }: TSite) => {
-    return (
-        <button onClick={() => signIn()}>
-            <Link href={'/'} className='flex justify-center items-center text-2xl font-semibold border min-h-[2.25em] rounded-xl'>
-                Continue with {action}
-            </Link>
-        </button>
-    )
-}
 
 const CredentialType = ({ action }: TCredentials) => {
     return (
@@ -76,9 +78,5 @@ const CredentialType = ({ action }: TCredentials) => {
         </div>
     )
 }
-
-// const SignUpLogic = () => <div>Sign Up</div>
-
-// const SignInLogic = () => <div>Sign In</div>
 
 export default Authenticate;
