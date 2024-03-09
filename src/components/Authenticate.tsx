@@ -23,7 +23,6 @@ const Authenticate = ({ action, providers }: TAuthenticate) => {
         message: action ? 'Log in' : 'Sign up',
         authenticateClickButton: action ? 'Log in' : 'Sign up with Email'
     }
-    const loginWith = ['Google', 'Facebook', 'Discord'];
     const credentials = ['Email', 'Password']
     return (
         // <button onClick={() => signIn()}>

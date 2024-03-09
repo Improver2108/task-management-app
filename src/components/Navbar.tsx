@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { BannerIcon } from "./Icons";
+import { signIn } from "next-auth/react";
 
 const Navbar = () => {
-  const [isCollapsedButtonClicked, setIsCollapsedButtonClicked] = useState<boolean>(false);
+  const [isHamburgerClicked, setIsHamburgerClicked] = useState<boolean>(false);
   return (
     <nav className="border-b-[1px] lg:border-none">
       <div className="items-center grid gap-[.875rem] grid-flow-col py-4 px-6">
@@ -15,17 +16,17 @@ const Navbar = () => {
         </div>
 
         <div className="flex justify-end items-center relative">
-          <button onClick={() => setIsCollapsedButtonClicked(prev => !prev)} className="p-4 hover:bg-[#efedec] rounded-lg">
-            {isCollapsedButtonClicked ? <CrossIcon /> : <CollapseIcon />}
+          <button onClick={() => setIsHamburgerClicked(prev => !prev)} className="p-4 hover:bg-[#efedec] rounded-lg">
+            {isHamburgerClicked ? <CrossIcon /> : <HamburgerIcon />}
           </button>
-          {isCollapsedButtonClicked ? <CollapseMenu /> : null}
+          {isHamburgerClicked ? <CollapseMenu /> : null}
         </div>
       </div>
     </nav>
   );
 }
 
-const CollapseIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="2em" height="1.75em">
+const HamburgerIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" width="2em" height="1.75em">
   <path fillRule="evenodd" d="M0 2a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 2zm0 6a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 8zm0 6a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H.75A.75.75 0 0 1 0 14z" clipRule="evenodd">
   </path>
 </svg>
@@ -42,7 +43,7 @@ const CollapseMenu = () => {
     <div className="absolute flex flex-col gap-3 top-20">
       {menu.map(([name, color, link], index) =>
         <div className={`bg-[${color}] min-w-4`} key={index}>
-          <Link href={`/auth/${link}`}>{name}</Link>
+          <button onClick={() => signIn()}>{name}</button>
         </div>
       )}
     </div>
