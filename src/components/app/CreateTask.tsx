@@ -28,7 +28,7 @@ const CreateTask = () => {
     const [date, setDate] = useState<Date>(new Date());
     const [isDeadlineClicked, setIsDeadlineClicked] = useState(false);
 
-    const [priority, setPriority] = useState<number>()
+    const [priority, setPriority] = useState<number | null>(null)
     const [isPriorityClicked, setIsPriorityClicked] = useState(false);
 
     const handleFormSubmit = (e: TaskFormEvent) => {
@@ -39,6 +39,9 @@ const CreateTask = () => {
             deadline: date,
             priority: priority as 1 | 2 | 3
         };
+        setDate(new Date())
+        setPriority(null)
+        e.currentTarget.reset()
         createTask.mutate(task)
     };
 
