@@ -6,21 +6,6 @@ import CreateTask from "~/components/app/CreateTask";
 import { api } from "~/utils/api";
 
 const Today = () => {
-    // const tasks = [
-    //     {
-    //         name: 'Work',
-    //         description: "To do this by today or tomorrow or dont, i don't care",
-    //         deadline: "23-08-1990",
-    //         priority: 1
-    //     },
-    //     {
-    //         name: 'Work',
-    //         description: "To do this by today or tomorrow or dont, i don't care",
-    //         deadline: "2023-12-1992",
-    //         priority: 2
-    //     },
-    // ]
-
     const tasks = api.task.get.useQuery().data;
 
     return (
