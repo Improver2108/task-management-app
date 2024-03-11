@@ -5,7 +5,6 @@ import Navbar from "~/components/Navbar";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.task.hello.useQuery('manoj');
   const { data: session, status } = useSession()
   const router = useRouter()
 
@@ -15,7 +14,6 @@ export default function Home() {
     return (
       <>
         <Navbar />
-        <button>{hello.data}</button>
       </>
     );
 }
