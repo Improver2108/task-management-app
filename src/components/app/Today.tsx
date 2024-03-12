@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaRegUser } from "react-icons/fa";
 import { IoIosRadioButtonOff } from "react-icons/io";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { RxCalendar } from "react-icons/rx";
@@ -39,7 +40,7 @@ type Children = {
 const CTodayList = (task: Task) => {
     return (
         <div className="flex justify-center">
-            <div className="flex max-w-[60rem] flex-grow gap-2 ">
+            <div className="flex max-w-[60rem] flex-grow gap-2">
                 <Icon>
                     <IoIosRadioButtonOff className="text-3xl cursor-pointer text-[#b3b3b3]" />
                 </Icon>
@@ -56,12 +57,12 @@ const CTodayList = (task: Task) => {
                     <div className="flex justify-between">
                         <div className="flex items-center gap-1 text-[#058527]">
                             <RxCalendar className="text-lg" />
-                            <p>By {task?.deadline?.toLocaleString()}</p>
+                            <p>By {task?.deadline?.toLocaleString('en', { day: "numeric", month: "short" })}</p>
                         </div>
-                        {/* <div className="flex gap-1 items-center">
+                        <div className="flex gap-1 items-center">
                             <FaRegUser />
-                            <p>{task.createdBy}</p>
-                        </div> */}
+                            <p>{task.createdBy.name}</p>
+                        </div>
 
                     </div>
 

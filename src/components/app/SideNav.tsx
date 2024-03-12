@@ -1,6 +1,6 @@
 const SideNavbar = () => {
     const navs = ['Search', 'Inbox', 'Today', 'Upcoming', 'Filters & ']
-    return <nav className="flex flex-col min-h-fit bg-[#fcfaf8]">
+    return <nav className="flex flex-col min-h-fit bg-[#fcfaf8] h-[100vh] w-[20em] overflow-y-auto">
         <div>UserName</div>
         <button>Add Task</button>
         <div>
