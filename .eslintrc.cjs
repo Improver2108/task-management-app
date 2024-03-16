@@ -32,6 +32,7 @@ const config = {
       },
     ],
     //added these
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
   },
 };
 

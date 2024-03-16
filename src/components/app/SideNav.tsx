@@ -17,7 +17,7 @@ type SideNavbarProps = {
 const SideNavbar = ({ onClick }: SideNavbarProps) => {
     const { data: session, status } = useSession();
     const [showUserOptions, setShowUserOptions] = useState(false)
-    const navs = [['Search', <CiSearch />], ['Inbox', <HiOutlineInbox />], ['Today', <IoTodayOutline />], ['Upcoming', <MdOutlineUpcoming />], ['Filters & Labels', <TbFilters />]]
+    const navs = [['Search', <CiSearch key='0' />], ['Inbox', <HiOutlineInbox key='0' />], ['Today', <IoTodayOutline key='0' />], ['Upcoming', <MdOutlineUpcoming key='0' />], ['Filters & Labels', <TbFilters key='0' />]]
 
     return <nav className="p-2 flex flex-col gap-2 min-h-fit bg-[#fcfaf8] h-[100vh] w-[20em] overflow-y-auto">
         <section className="flex justify-between items-center">
