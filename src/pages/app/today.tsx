@@ -4,12 +4,24 @@ import CTodayList from "~/components/app/Today";
 import { AiFillPlusCircle } from "react-icons/ai";
 import CreateTask from "~/components/app/CreateTask";
 import { api } from "~/utils/api";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SideNavbar from "~/components/app/SideNav";
-
 const Today = () => {
     const [sideNavShow, setSideNavShow] = useState<boolean>(false);
     const { data } = api.task.get.useQuery()
+    const navRef = useRef<HTMLElement>(null)
+
+    const handleOutsideClick = useCallback((e: MouseEvent) => {
+        if (navRef.current && !navRef.current.contains(e.target as Node))
+            setSideNavShow(false)
+    }, [sideNavShow])
+
+    useEffect(() => {
+        document.addEventListener('click', handleOutsideClick, true)
+        return () => {
+            document.removeEventListener('click', handleOutsideClick, true)
+        }
+    }, [sideNavShow])
     return (
         <main className="flex w-[100%] relative">
             <article className={`w-[100%] ${sideNavShow ? 'pointer-events-none blur-[2px]' : ''}`}>
@@ -36,8 +48,8 @@ const Today = () => {
                     <CreateTask />
                 </div>
             </article>
-            <aside className={`fixed ${!sideNavShow ? 'hidden' : ''}`}>
-                <SideNavbar />
+            <aside ref={navRef} className={`fixed ${!sideNavShow ? 'hidden' : ''}`}>
+                <SideNavbar onClick={() => setSideNavShow(false)} />
             </aside>
         </main>
     )
