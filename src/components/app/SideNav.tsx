@@ -1,8 +1,8 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { BsLayoutSidebar } from "react-icons/bs";
-import { MouseEventHandler, ReactNode } from "react";
+import { MouseEventHandler, ReactNode, useState } from "react";
 import { HiPlusCircle } from "react-icons/hi";
 import { CiSearch } from "react-icons/ci";
 import { HiOutlineInbox } from "react-icons/hi2";
@@ -14,17 +14,14 @@ type SideNavbarProps = {
     onClick: MouseEventHandler<HTMLElement> | undefined
 }
 
-type SideNavListProps = {
-    children: ReactNode
-}
-
 const SideNavbar = ({ onClick }: SideNavbarProps) => {
-    const { data: session, status } = useSession()
-    // const navs = ['Search', 'Inbox', 'Today', 'Upcoming', 'Filters & ']
+    const { data: session, status } = useSession();
+    const [showUserOptions, setShowUserOptions] = useState(false)
     const navs = [['Search', <CiSearch />], ['Inbox', <HiOutlineInbox />], ['Today', <IoTodayOutline />], ['Upcoming', <MdOutlineUpcoming />], ['Filters & Labels', <TbFilters />]]
+
     return <nav className="p-2 flex flex-col gap-2 min-h-fit bg-[#fcfaf8] h-[100vh] w-[20em] overflow-y-auto">
         <section className="flex justify-between items-center">
-            <button className="flex items-center gap-1 rounded-lg hover:bg-[#f3efec] p-1">
+            <button className="relative flex items-center gap-1 rounded-lg hover:bg-[#f3efec] p-1" onClick={() => setShowUserOptions(!showUserOptions)}>
                 <Image className="rounded-full" src={session?.user.image as string} width={26} height={26} alt="profile" />
                 <h1 className="ml-1 text-sm">{session?.user.name}</h1>
                 <MdKeyboardArrowDown className="text-gray-500" />
@@ -32,22 +29,25 @@ const SideNavbar = ({ onClick }: SideNavbarProps) => {
             <button className="hover:bg-[#f3efec] rounded-lg p-2" onClick={onClick}>
                 <BsLayoutSidebar className="text-gray-500" />
             </button>
+            {showUserOptions && <UserOptions />}
         </section>
         <button className="flex items-center gap-2 hover:bg-[#f3efec] p-1 rounded-lg">
             <HiPlusCircle className="text-2xl text-[#dc4c3e]" />
             <h1>Add Task</h1>
         </button>
         <ul className="p-1 space-y-1">
-            {navs.map(([nav, icon], index) => <SideNavList key={index}>
+            {navs.map(([nav, icon], index) => <li className="flex items-center gap-2 p-1 cursor-pointer hover:bg-[#f3efec] rounded-lg" key={index}>
                 {icon}
                 <h2>{nav}</h2>
-            </SideNavList>)}
+            </li>)}
         </ul>
-
     </nav>
 }
 
-const SideNavList = ({ children }: SideNavListProps) => {
-    return <li className="flex items-center gap-2 p-1 cursor-pointer hover:bg-[#f3efec] rounded-lg">{children}</li>
+const UserOptions = () => {
+    return <nav className="absolute w-[100%] p-1 top-[3rem] bg-white rounded-lg shadow-md">
+        <button onClick={() => signOut({ callbackUrl: '/', redirect: true })}>Logout</button>
+    </nav>
 }
+
 export default SideNavbar;
