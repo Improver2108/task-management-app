@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { forwardRef, useState } from "react"
 import Calendar from "react-calendar"
 import { FaRegUser } from "react-icons/fa"
 import { IoSend } from "react-icons/io5"
@@ -20,7 +20,11 @@ type TaskFormEvent = React.FormEvent<HTMLFormElement> & {
     }
 }
 
-const CreateTask = () => {
+type CreateTaskProp = {
+    onClick: () => void;
+}
+
+const CreateTask = ({ onClick }: CreateTaskProp) => {
     const trpcUtils = api.useUtils()
     const createTask = api.task.create.useMutation({
         onSuccess: async () => await trpcUtils.task.get.invalidate()
@@ -76,6 +80,7 @@ const CreateTask = () => {
                     <div className="flex pt-2 justify-end">
                         <button type="submit"><IoSend /></button>
                     </div>
+                    <button onClick={onClick}>Close</button>
                 </form>
             </div>
         </section>

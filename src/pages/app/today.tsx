@@ -9,12 +9,17 @@ import SideNavbar from "~/components/app/SideNav";
 const Today = () => {
     const [sideNavShow, setSideNavShow] = useState<boolean>(false);
     const { data } = api.task.get.useQuery()
-    const navRef = useRef<HTMLElement>(null)
+    const navRef = useRef<HTMLElement>(null);
+    const taskCreateRef = useRef<HTMLDialogElement>(null);
 
     const handleOutsideClick = useCallback((e: MouseEvent) => {
         if (navRef.current && !navRef.current.contains(e.target as Node))
             setSideNavShow(false)
     }, [sideNavShow])
+
+    const closeTaskDialog = () => {
+        taskCreateRef.current?.close();
+    }
 
     useEffect(() => {
         document.addEventListener('click', handleOutsideClick, true)
@@ -39,13 +44,15 @@ const Today = () => {
                     <div className="flex flex-col gap-5">
                         {data?.map((task, index) => <CTodayList {...task} key={index} />)}
                         <div className="flex justify-center">
-                            <button className="flex flex-grow items-center max-w-[60rem] text-lg gap-3">
+                            <button className="flex flex-grow items-center max-w-[60rem] text-lg gap-3" onClick={() => taskCreateRef.current?.show()}>
                                 <AiFillPlusCircle className="fill-blue-500 text-green-500 text-2xl" />
                                 <p className="text-gray-400">Add Tak</p>
                             </button>
                         </div>
+                        <dialog ref={taskCreateRef} className="relative w-[100%]">
+                            <CreateTask onClick={() => closeTaskDialog()} />
+                        </dialog>
                     </div>
-                    <CreateTask />
                 </div>
             </article>
             <aside ref={navRef} className={`transition-[transform] ease-in-out duration-300 fixed ${!sideNavShow ? 'translate-x-[-100%]' : 'translate-x-0'}`}>
