@@ -48,7 +48,7 @@ const Today = () => {
                     <CreateTask />
                 </div>
             </article>
-            <aside ref={navRef} className={`fixed ${!sideNavShow ? 'hidden' : ''}`}>
+            <aside ref={navRef} className={`transition-[transform] ease-in-out duration-300 fixed ${!sideNavShow ? 'translate-x-[-100%]' : 'translate-x-0'}`}>
                 <SideNavbar onClick={() => setSideNavShow(false)} />
             </aside>
         </main>
