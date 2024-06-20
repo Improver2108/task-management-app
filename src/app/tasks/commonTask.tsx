@@ -13,18 +13,23 @@ export default function CommonTask({ children }: CommonTask) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
-      <AppHeader onClick={() => setIsNavOpen(true)} />
+      <AppHeader
+        onClick={() => setIsNavOpen(true)}
+        className={isNavOpen ? "pointer-events-none blur" : ""}
+      />
       <main>
         <section>
           <Modal
-            className={`fixed -top-1 transition-transform duration-300 ease-in-out ${!isNavOpen ? "-translate-x-full" : "translate-x-0"} `}
+            className={`fixed -top-1 z-20 transition-transform duration-300 ease-in-out ${!isNavOpen ? "-translate-x-full" : "translate-x-0"} `}
             isModelOpen={isNavOpen}
             setModalShow={setIsNavOpen}
           >
             <SideNavbar onClick={() => setIsNavOpen(false)} />
           </Modal>
         </section>
-        {children}
+        <section className={isNavOpen ? "pointer-events-none blur" : ""}>
+          {children}
+        </section>
       </main>
     </>
   );

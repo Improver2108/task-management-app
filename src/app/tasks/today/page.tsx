@@ -10,14 +10,14 @@ const Today = () => {
   const { data, isLoading, isError } = api.task.get.useQuery();
   const taskCreateRef = useRef<HTMLDialogElement>(null);
 
-  if (isLoading) return <section>isLoading...</section>;
-  if (isError) return <section>Error...</section>;
+  if (isLoading) return <>isLoading...</>;
+  if (isError) return <>Error...</>;
 
   const closeTaskDialog = () => {
     taskCreateRef.current?.close();
   };
   return (
-    <section>
+    <>
       <div className="flex flex-col gap-5 px-[3.5rem] pb-5">
         <div className="flex items-center  justify-center">
           <div className="max-w-[60rem] flex-grow ">
@@ -46,7 +46,7 @@ const Today = () => {
           </dialog>
         </div>
       </div>
-    </section>
+    </>
   );
 };
 

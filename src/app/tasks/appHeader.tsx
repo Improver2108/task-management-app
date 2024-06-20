@@ -4,11 +4,14 @@ import { LuSettings2 } from "react-icons/lu";
 
 type AppHeaderProp = {
   onClick: MouseEventHandler<HTMLElement> | undefined;
+  className?: string;
 };
 
-const AppHeader = ({ onClick }: AppHeaderProp) => {
+const AppHeader = ({ onClick, className }: AppHeaderProp) => {
   return (
-    <header className="sticky top-0 grid grid-flow-col gap-3 bg-white p-4 px-5">
+    <header
+      className={`sticky top-0 grid grid-flow-col gap-3 bg-white p-4 px-5 ${className}`}
+    >
       <div className="flex justify-start">
         <button
           className="rounded-lg p-2 text-2xl text-[#666666] hover:bg-[#f3efec] hover:text-[#1a1a1a]"

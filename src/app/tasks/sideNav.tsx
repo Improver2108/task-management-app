@@ -11,13 +11,15 @@ import { IoTodayOutline } from "react-icons/io5";
 import { MdOutlineUpcoming } from "react-icons/md";
 import { TbFilters } from "react-icons/tb";
 import Modal from "../_components/Modal";
+import Link from "next/link";
 
 type SideNavbarProps = {
-  onClick: MouseEventHandler<HTMLElement> | undefined;
+  onClick: MouseEventHandler<HTMLElement>;
 };
 
 const SideNavbar = ({ onClick }: SideNavbarProps) => {
   const { data: session, status } = useSession();
+  const [currentPage, setCurrentPage] = useState(1);
   const [showUserOptions, setShowUserOptions] = useState(false);
   const navLinks = [
     ["Search", <CiSearch key="0" />],
@@ -26,6 +28,16 @@ const SideNavbar = ({ onClick }: SideNavbarProps) => {
     ["Upcoming", <MdOutlineUpcoming key="0" />],
     ["Filters & Labels", <TbFilters key="0" />],
   ];
+
+  const handlePageChange = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    index: number,
+  ) => {
+    if (index !== 0) {
+      onClick(e);
+      setCurrentPage(index);
+    }
+  };
 
   return (
     <nav className="flex h-[100vh] min-h-fit w-[20em] flex-col gap-2 overflow-y-auto bg-[#fcfaf8] p-2">
@@ -61,13 +73,15 @@ const SideNavbar = ({ onClick }: SideNavbarProps) => {
       </button>
       <ul className="space-y-1 p-1">
         {navLinks.map(([nav, icon], index) => (
-          <li
-            className="flex cursor-pointer items-center gap-2 rounded-lg p-1 hover:bg-[#f3efec]"
+          <Link
+            href={`/tasks/${nav?.toString().toLowerCase()}`}
+            className={`flex cursor-pointer items-center gap-2 rounded-lg p-1 ${index === currentPage ? "bg-amber-100" : ""}`}
             key={index}
+            onClick={(e) => handlePageChange(e, index)}
           >
             {icon}
             <h2>{nav}</h2>
-          </li>
+          </Link>
         ))}
       </ul>
     </nav>
