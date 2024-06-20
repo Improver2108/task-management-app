@@ -4,8 +4,7 @@ import { FaRegUser } from "react-icons/fa"
 import { IoSend } from "react-icons/io5"
 import { PiFlagBannerBold } from "react-icons/pi"
 import { RxCalendar } from "react-icons/rx"
-import { api } from "~/utils/api"
-
+import { api } from "~/trpc/react"
 type TTask = {
     name: string,
     description: string
@@ -25,7 +24,7 @@ type CreateTaskProp = {
 }
 
 const CreateTask = ({ onClick }: CreateTaskProp) => {
-    const trpcUtils = api.useUtils()
+    const trpcUtils = api.useUtils();
     const createTask = api.task.create.useMutation({
         onSuccess: async () => await trpcUtils.task.get.invalidate()
     });

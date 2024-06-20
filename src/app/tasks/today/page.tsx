@@ -1,11 +1,13 @@
-import AppHeader from "~/components/app/AppHeader";
+'use client'
+import AppHeader from "~/app/tasks/AppHeader";
 import { MdOutlineTaskAlt } from "react-icons/md";
-import CTodayList from "~/components/app/Today";
+import CTodayList from "~/app/tasks/today/Today";
 import { AiFillPlusCircle } from "react-icons/ai";
-import CreateTask from "~/components/app/CreateTask";
-import { api } from "~/utils/api";
+import CreateTask from "~/app/tasks/today/CreateTask";
+import { api } from "~/trpc/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import SideNavbar from "~/components/app/SideNav";
+import SideNavbar from "~/app/tasks/SideNav";
+
 const Today = () => {
     const [sideNavShow, setSideNavShow] = useState<boolean>(false);
     const { data } = api.task.get.useQuery()

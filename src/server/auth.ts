@@ -1,5 +1,4 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
   type DefaultSession,
@@ -64,7 +63,7 @@ export const authOptions: NextAuthOptions = {
      */
   ],
   pages: {
-    signIn: "/auth/login",
+    signIn: "/auth/signin",
   },
 };
 
@@ -73,9 +72,4 @@ export const authOptions: NextAuthOptions = {
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
-}) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
-};
+export const getServerAuthSession = () => getServerSession(authOptions);

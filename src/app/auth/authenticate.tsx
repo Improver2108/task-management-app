@@ -1,21 +1,16 @@
-import { ClientSafeProvider, LiteralUnion, signIn } from 'next-auth/react';
-import { BannerIcon } from './Icons';
 import Link from 'next/link';
-import { BuiltInProviderType } from 'next-auth/providers/index';
-
-
-type TProviders = Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | never[];
-
+import Image from 'next/image';
+import { getProviders, signIn } from "next-auth/react";
+import Provider from './provider';
 type TAuthenticate = {
     action: boolean,
-    providers: TProviders
+    providers: Awaited<ReturnType<typeof getProviders>>
 }
 
 type TCredentials = {
     action: string
 }
 const passWordRegex = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
-
 
 const Authenticate = ({ action, providers }: TAuthenticate) => {
 
@@ -25,23 +20,16 @@ const Authenticate = ({ action, providers }: TAuthenticate) => {
     }
     const credentials = ['Email', 'Password']
     return (
-        // <button onClick={() => signIn()}>
-        //     {action ? <SignInLogic /> : <SignUpLogic />}
-        // </button>
         <div className='px-[2rem] py-[2rem] flex justify-center flex-shrink-1'>
             <div className='w-[35em]'>
                 <Link href={`/`}>
-                    <BannerIcon width={80} height={70} />
+                    <Image src='/Designer.svg' width={100} height={80} alt='logo' />
                 </Link>
                 <div className='flex mt-7 flex-col gap-[3rem]'>
                     <h3 className='text-5xl font-semibold'>{authenticateOptions.message}</h3>
                     <div className='flex flex-col gap-4'>
-                        {Object.values(providers).map(provider =>
-                            <button key={provider.name} onClick={() => signIn(provider.id)}>
-                                <Link href={'/auth/login'} className='flex justify-center items-center text-2xl font-semibold border min-h-[2.25em] rounded-xl'>
-                                    Continue with {provider.name}
-                                </Link>
-                            </button>
+                        {providers && Object.values(providers).map(provider =>
+                            <Provider provider={provider} key={provider.name} />
                         )}
                     </div>
                     <hr className="border-gray-300" />
@@ -55,7 +43,6 @@ const Authenticate = ({ action, providers }: TAuthenticate) => {
         </div>
     )
 }
-
 
 const CredentialType = ({ action }: TCredentials) => {
     return (
@@ -73,7 +60,6 @@ const CredentialType = ({ action }: TCredentials) => {
                     {...(action === 'Password' && { pattern: passWordRegex })}//learned a good thing here
                 />
             </label>
-
         </div>
     )
 }
