@@ -1,4 +1,4 @@
-import CommonTask from "./commonTask";
+import SharedLayout from "./sharedLayout";
 
 export default function TaskLayout({
   children,
@@ -7,7 +7,7 @@ export default function TaskLayout({
 }) {
   return (
     <>
-      <CommonTask>{children}</CommonTask>
+      <SharedLayout>{children}</SharedLayout>
     </>
   );
 }

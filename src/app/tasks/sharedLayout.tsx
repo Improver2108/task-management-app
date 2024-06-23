@@ -9,7 +9,7 @@ type CommonTask = {
   children: React.ReactNode;
 };
 
-export default function CommonTask({ children }: CommonTask) {
+export default function SharedLayout({ children }: CommonTask) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
@@ -29,7 +29,7 @@ export default function CommonTask({ children }: CommonTask) {
         </section>
         <section className={isNavOpen ? "pointer-events-none blur " : ""}>
           <div className="flex justify-center">
-            <div className="w-[60rem] px-[4em]">{children}</div>
+            <div className="w-[60rem] px-[2em] md:px-[4em] ">{children}</div>
           </div>
         </section>
       </main>

@@ -1,4 +1,4 @@
-import CreateTask from "~/app/tasks/inbox/createTask";
+import CreateTask from "~/app/tasks/createTask";
 import AllTask from "./allTask";
 
 const Inbox = () => {
