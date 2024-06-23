@@ -1,5 +1,7 @@
-import { useState } from "react";
+"use client";
+import { useRef, useState } from "react";
 import Calendar from "react-calendar";
+import { AiFillPlusCircle } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { PiFlagBannerBold } from "react-icons/pi";
@@ -19,20 +21,17 @@ type TaskFormEvent = React.FormEvent<HTMLFormElement> & {
   };
 };
 
-type CreateTaskProp = {
-  onClick: () => void;
-};
-
-const CreateTask = ({ onClick }: CreateTaskProp) => {
+const CreateTask = () => {
   const trpcUtils = api.useUtils();
   const createTask = api.task.create.useMutation({
     onSuccess: async () => await trpcUtils.task.get.invalidate(),
   });
   const [date, setDate] = useState<Date>(new Date());
   const [isDeadlineClicked, setIsDeadlineClicked] = useState(false);
-
   const [priority, setPriority] = useState<number | null>(null);
   const [isPriorityClicked, setIsPriorityClicked] = useState(false);
+
+  const taskCreateRef = useRef<HTMLDialogElement>(null);
 
   const handleFormSubmit = (e: TaskFormEvent) => {
     e.preventDefault();
@@ -48,10 +47,26 @@ const CreateTask = ({ onClick }: CreateTaskProp) => {
     createTask.mutate(task);
   };
 
+  const closeTaskDialog = () => {
+    taskCreateRef.current?.close();
+  };
+
   return (
-    <section className="flex justify-center">
-      <div className="flex max-w-[60rem] flex-grow rounded-lg border p-4">
-        <form className="flex flex-grow flex-col" onSubmit={handleFormSubmit}>
+    <>
+      <article className="flex justify-center">
+        <button
+          className="flex max-w-[60rem] flex-grow items-center gap-3 text-lg"
+          onClick={() => taskCreateRef.current?.show()}
+        >
+          <AiFillPlusCircle className="fill-blue-500 text-2xl text-green-500" />
+          <p className="text-gray-400">Add Tak</p>
+        </button>
+      </article>
+      <dialog ref={taskCreateRef} className="relative w-full">
+        <form
+          className="flex flex-col rounded-lg border p-4"
+          onSubmit={handleFormSubmit}
+        >
           <input
             name="taskName"
             type="text"
@@ -126,10 +141,10 @@ const CreateTask = ({ onClick }: CreateTaskProp) => {
               <IoSend />
             </button>
           </div>
-          <button onClick={onClick}>Close</button>
+          <button onClick={() => closeTaskDialog()}>Close</button>
         </form>
-      </div>
-    </section>
+      </dialog>
+    </>
   );
 };
 

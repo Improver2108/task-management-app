@@ -40,4 +40,65 @@ export const taskRouter = createTRPCRouter({
         },
       }),
   ),
+  getToday: protectedProcedure.query(async ({ ctx }) => {
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+    const todayEnd = new Date();
+    todayEnd.setUTCHours(23, 59, 59, 999);
+    return await ctx.db.task.findMany({
+      where: {
+        createdById: ctx.session.user.id,
+        deadline: {
+          gte: todayStart.toISOString(),
+          lte: todayEnd.toISOString(),
+        },
+      },
+      select: {
+        name: true,
+        description: true,
+        deadline: true,
+        priority: true,
+        createdBy: {
+          select: { name: true, email: true, image: true },
+        },
+      },
+    });
+  }),
+
+  getTodayCount: protectedProcedure.query(async ({ ctx }) => {
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+    const todayEnd = new Date();
+    todayEnd.setUTCHours(23, 59, 59, 999);
+    return await ctx.db.task.count({
+      where: {
+        deadline: {
+          gte: todayStart.toISOString(),
+          lte: todayEnd.toISOString(),
+        },
+      },
+    });
+  }),
+
+  getOverdue: protectedProcedure.query(async ({ ctx }) => {
+    const todayStart = new Date();
+    todayStart.setUTCHours(0, 0, 0, 0);
+    return await ctx.db.task.findMany({
+      where: {
+        createdById: ctx.session.user.id,
+        deadline: {
+          lt: todayStart.toISOString(),
+        },
+      },
+      select: {
+        name: true,
+        description: true,
+        deadline: true,
+        priority: true,
+        createdBy: {
+          select: { name: true, email: true, image: true },
+        },
+      },
+    });
+  }),
 });

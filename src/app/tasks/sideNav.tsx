@@ -74,7 +74,7 @@ const SideNavbar = ({ onClick }: SideNavbarProps) => {
       <ul className="space-y-1 p-1">
         {navLinks.map(([nav, icon], index) => (
           <Link
-            href={`/tasks/${nav?.toString().toLowerCase()}`}
+            href={`/tasks/${nav?.toString().toLowerCase().split(" ")[0]}`}
             className={`flex cursor-pointer items-center gap-2 rounded-lg p-1 ${index === currentPage ? "bg-amber-100" : ""}`}
             key={index}
             onClick={(e) => handlePageChange(e, index)}

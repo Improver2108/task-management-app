@@ -27,8 +27,10 @@ export default function CommonTask({ children }: CommonTask) {
             <SideNavbar onClick={() => setIsNavOpen(false)} />
           </Modal>
         </section>
-        <section className={isNavOpen ? "pointer-events-none blur" : ""}>
-          {children}
+        <section className={isNavOpen ? "pointer-events-none blur " : ""}>
+          <div className="flex justify-center">
+            <div className="w-[60rem] px-[4em]">{children}</div>
+          </div>
         </section>
       </main>
     </>
