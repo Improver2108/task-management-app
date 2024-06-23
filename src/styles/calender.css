@@ -1,0 +1,29 @@
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  pointer-events: none;
+  display: none;
+}
+
+.react-calendar__navigation {
+  display: flex;
+}
+
+.react-calendar__navigation__label {
+  pointer-events: none;
+}
+
+.react-calendar__month-view__days__day,
+.react-calendar__month-view__weekdays__weekday {
+  border-radius: 100%;
+  padding: 0.5rem;
+  font-size: small;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  pointer-events: none;
+  opacity: 1;
+  color: #808080;
+}
