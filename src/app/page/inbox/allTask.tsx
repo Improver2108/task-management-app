@@ -8,7 +8,9 @@ export default function GetAllTask() {
   if (isError) return <>Error...</>;
   return (
     <>
-      {getTaskData?.map((task, index) => <CTodayList {...task} key={index} />)}
+      {getTaskData?.map((task, index) => (
+        <CTodayList task={task} key={index} />
+      ))}
     </>
   );
 }

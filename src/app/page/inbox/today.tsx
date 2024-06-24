@@ -17,13 +17,18 @@ type Task = {
   };
 };
 
+type CTodayListProps = {
+  task: Task;
+  className?: string;
+};
+
 type Children = {
   children: React.ReactNode;
 };
 
-const CTodayList = (task: Task) => {
+const CTodayList = ({ task, className }: CTodayListProps) => {
   return (
-    <article className="flex justify-center gap-2">
+    <article className={"justify-centers flex gap-2 " + className}>
       <Icon>
         <IoIosRadioButtonOff className="cursor-pointer text-3xl text-[#b3b3b3]" />
       </Icon>

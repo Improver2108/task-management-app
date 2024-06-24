@@ -1,29 +1,24 @@
 "use client";
-import Image from "next/image";
+import { useState } from "react";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Calender from "../calender";
-import { useState } from "react";
-
-export default function UpcomingPage() {
+export default function CalenderButton() {
   const date = new Date();
   const [calendarVisible, setCalendarVisible] = useState(false);
   return (
-    <>
-      <h1 className="text-4xl font-bold">Upcoming</h1>
+    <div>
       <button
-        className="flex items-center gap-1"
+        className="my-3 flex items-center gap-1"
         onClick={() => setCalendarVisible(!calendarVisible)}
       >
         {`${date.toLocaleDateString("default", { month: "short" })} ${date.getFullYear()}`}
         <RiArrowDropDownLine className="text-xl" />
       </button>
       {calendarVisible && (
-        <div className="max-w-[20em]">
+        <div className="absolute z-20 max-w-[20em] bg-white">
           <Calender />
         </div>
       )}
-
-      <div className="my-5 flex flex-col gap-5"></div>
-    </>
+    </div>
   );
 }

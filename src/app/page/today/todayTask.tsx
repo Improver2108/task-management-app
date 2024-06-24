@@ -21,7 +21,7 @@ export default function TodayTask() {
   return (
     <div>
       <h1>{`${today.getDate()} ${today.toLocaleDateString("default", { month: "short" })} Today - ${today.toLocaleDateString("default", { weekday: "long" })}`}</h1>
-      {todayTask?.map((task, index) => <CTodayList {...task} key={index} />)}
+      {todayTask?.map((task, index) => <CTodayList task={task} key={index} />)}
       <CreateTask />
     </div>
   );

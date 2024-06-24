@@ -23,7 +23,9 @@ export default function OverdueTask() {
         Overdue Tasks
       </button>
       {isOverdueTaskOpen &&
-        overdueData?.map((task, index) => <CTodayList {...task} key={index} />)}
+        overdueData?.map((task, index) => (
+          <CTodayList task={task} key={index} />
+        ))}
     </div>
   );
 }
