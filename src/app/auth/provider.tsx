@@ -10,7 +10,7 @@ export default function Provider({ provider, children }: ProviderProp) {
   return (
     <button
       className="flex min-h-[2.25em] items-center justify-center gap-3 rounded-xl border text-2xl font-semibold"
-      onClick={() => signIn(provider.id, { callbackUrl: "/tasks/today" })}
+      onClick={() => signIn(provider.id, { callbackUrl: "/page/today" })}
     >
       {children}
       Continue with {provider.name}
