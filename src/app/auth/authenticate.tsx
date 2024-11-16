@@ -25,14 +25,12 @@ const Authenticate = ({ action, providers }: TAuthenticate) => {
   const credentials = ["Email", "Password"];
   return (
     <main className="flex-shrink-1 flex justify-center px-[2rem] py-[2rem] sm:px-[3rem]">
-      <div className="w-[35em]">
+      <div className="max-w-[35em]">
         <Link href={`/`}>
           <Image src="/Designer.svg" width={100} height={80} alt="logo" />
         </Link>
         <div className="mt-7 flex flex-col gap-[1rem]">
-          <h3 className="text-5xl font-semibold">
-            {authenticateOptions.message}
-          </h3>
+          <h3 className="text-4xl font-bold">{authenticateOptions.message}</h3>
           <div className="mt-6 flex flex-col gap-4">
             {providers &&
               Object.values(providers).map((provider) => (
@@ -53,7 +51,7 @@ const Authenticate = ({ action, providers }: TAuthenticate) => {
             ))}
             <Button
               type="submit"
-              className="py-6 text-xl font-semibold"
+              className="py-7 text-xl font-semibold"
               variant="destructive"
             >
               {authenticateOptions.message}
