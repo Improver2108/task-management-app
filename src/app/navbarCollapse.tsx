@@ -1,28 +1,15 @@
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetOverlay,
-  SheetTitle,
-  SheetTrigger,
-} from "~/components/ui/sheet";
-
-type TNavbarCollapse = {
-  children: React.ReactNode;
-};
+import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 
 const navLinks = ["Features", "For Teams", "Resources"];
 
-export function NavbarCollapse() {
+export default function NavbarCollapse() {
   const [isHamburgerClicked, setIsHamburgerClicked] = useState<boolean>(false);
   return (
     <Sheet onOpenChange={(open) => setIsHamburgerClicked(open)}>

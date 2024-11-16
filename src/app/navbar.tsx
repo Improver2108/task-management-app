@@ -1,11 +1,7 @@
-"use client";
 import Link from "next/link";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
-import { IoMdClose } from "react-icons/io";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { NavbarCollapse } from "./navbarCollaps";
+import React from "react";
+import NavbarCollapse from "./navbarCollapse";
 
 const Navbar = () => {
   return (
@@ -26,22 +22,6 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  );
-};
-
-const CollapseMenu = () => {
-  const menu = [
-    ["Sign in", "#e8e6e5", "login"],
-    ["Sign up", "#cf3520", "signup"],
-  ];
-  return (
-    <div className="flex flex-col gap-3 ">
-      {menu.map(([name, color, link], index) => (
-        <div className={`bg-[${color}] min-w-4`} key={index}>
-          <button onClick={() => signIn()}>{name}</button>
-        </div>
-      ))}
-    </div>
   );
 };
 
