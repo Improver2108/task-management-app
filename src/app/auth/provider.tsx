@@ -1,6 +1,7 @@
 "use client";
 
-import { ClientSafeProvider, signIn } from "next-auth/react";
+import { type ClientSafeProvider, signIn } from "next-auth/react";
+import { Button } from "~/components/ui/button";
 
 type ProviderProp = {
   provider: ClientSafeProvider;
@@ -8,12 +9,13 @@ type ProviderProp = {
 };
 export default function Provider({ provider, children }: ProviderProp) {
   return (
-    <button
-      className="flex min-h-[2.25em] items-center justify-center gap-3 rounded-xl border text-2xl font-semibold"
+    <Button
+      variant="outline"
+      className="flex gap-3 py-6 text-xl font-bold"
       onClick={() => signIn(provider.id, { callbackUrl: "/page/today" })}
     >
       {children}
       Continue with {provider.name}
-    </button>
+    </Button>
   );
 }

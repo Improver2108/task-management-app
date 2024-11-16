@@ -1,4 +1,5 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -39,12 +40,16 @@ export default function NavbarCollapse() {
             <Separator />
           </div>
           <div className="grid w-full grid-cols-2 gap-4 px-4">
-            <Button className="bg-gray-300 py-6 text-lg font-semibold text-black hover:bg-gray-400">
+            <Button
+              onClick={() => signIn()}
+              className="bg-gray-300 py-6 text-lg font-semibold text-black hover:bg-gray-400"
+            >
               Sign In
             </Button>
             <Button
               variant="destructive"
               className="py-6 text-lg font-semibold"
+              onClick={() => signIn()}
             >
               Sign Up
             </Button>
